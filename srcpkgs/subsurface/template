@@ -1,0 +1,23 @@
+# Template file for 'subsurface'
+pkgname=subsurface
+version=4.9.10
+revision=1
+archs="i686 x86_64"
+build_style=cmake
+configure_args="-DSUBSURFACE_TARGET_EXECUTABLE=DesktopExecutable -DCMAKE_BUILD_TYPE=Release -DBTSUPPORT=ON -DNO_USERMANUAL=OFF -DNO_PRINTING=OFF"
+hostmakedepends="git pkg-config autoconf automake libtool"
+makedepends="subsurface-libdc-devel libbluetooth-devel libcurl-devel sqlite-devel libssh2-devel eudev-libudev-devel libusb-devel libxml2-devel libxslt-devel qt5-devel qt5-connectivity-devel qt5-declarative-devel qt5-location-devel qt5-script-devel qt5-svg-devel qt5-tools-devel qt5-webkit-devel bluez-qt5-devel libgit2-devel libzip-devel libmtp-devel"
+depends="subsurface-libdc googlemaps"
+short_desc="Multi-platform divelog software"
+maintainer="Alan Brown <adbrown@rocketmail.com>"
+license="GPL-2.0-only"
+homepage="https://subsurface-divelog.org/"
+
+# Version info only available from a git clone
+do_fetch() {
+	git clone -b v${version} --depth=1 https://github.com/subsurface/subsurface.git ${wrksrc}
+}
+
+post_extract() {
+	mkdir -p build
+}
