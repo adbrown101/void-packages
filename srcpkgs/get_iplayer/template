@@ -1,0 +1,17 @@
+# Template file for 'get_iplayer'
+pkgname=get_iplayer
+version=3.27
+revision=1
+hostmakedepends=""
+makedepends=""
+depends="perl-LWP perl-LWP-Protocol-https perl-XML-LibXML perl-Mojolicious perl-CGI ffmpeg atomicparsley"
+short_desc="BBC iPlayer/BBC Sounds Indexing Tool and PVR"
+maintainer="Alan Brown <adbrown@rocketmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://get-iplayer.github.io/get_iplayer/"
+distfiles="https://github.com/get-iplayer/get_iplayer/archive/refs/tags/v${version}.tar.gz"
+checksum=2577ea7ab5dca4a0cdb27854eb945d35f36a594d9d766b14a8304b3f1e7fc6d6
+
+do_install() {
+	vbin get_iplayer
+}
