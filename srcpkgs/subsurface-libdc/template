@@ -1,0 +1,30 @@
+# Template file for 'subsurface-libdc'
+pkgname=subsurface-libdc
+version=4.9.10
+revision=1
+archs="i686 x86_64"
+wrksrc="libdc-${version}"
+build_style=gnu-configure
+hostmakedepends="libtool automake autoconf pkg-config"
+short_desc="Subsurface version of libdivecomputer"
+maintainer="Alan Brown <adbrown@rocketmail.com>"
+license="LGPL-2.1-only"
+homepage="https://github.com/subsurface/libdc"
+distfiles="https://github.com/subsurface/libdc/archive/v${version}.tar.gz"
+checksum=2bf53c2fa23ae31ce6df803d9668a7db22cc699b7fac330d6b303547c93d65a6
+
+pre_configure() {
+	autoreconf -fi
+}
+
+subsurface-libdc-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+		vmove "usr/lib/*.a"
+		vmove usr/share/man/man3
+	}
+}
