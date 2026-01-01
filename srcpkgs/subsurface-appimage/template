@@ -1,0 +1,29 @@
+# Template file for 'subsurface-appimage'
+pkgname=subsurface-appimage
+version=6.0.5504
+revision=1
+archs="i686 x86_64"
+short_desc="Multi-platform divelog software"
+maintainer="Alan Brown <adbrown@rocketmail.com>"
+depends="fuse"
+license="GPL-2.0-only"
+homepage="https://subsurface-divelog.org/"
+distfiles="${homepage}/downloads/Subsurface-${version}-CICD-release.AppImage"
+_pkg="Subsurface-${version}-CICD-release"
+checksum=a9b6a74c4c6612d07ea8c0c1dd4ad2c124b6fcabbaf6475c3309c747760fd8bb
+nostrip=yes
+
+do_extract() {
+	install -Dm755 ${XBPS_SRCDISTDIR}/${pkgname}-${version}/${_pkg}.AppImage ${wrksrc}
+	cd ${wrksrc}
+	./${_pkg}.AppImage --appimage-extract
+}
+
+do_install() {
+	vinstall ${_pkg}.AppImage 755 /opt/appimages
+	vmkdir /usr/share 755
+	vcopy squashfs-root/usr/share/icons /usr/share
+	vinstall squashfs-root/subsurface.desktop 644 /usr/share/applications
+	vmkdir /usr/bin 755
+	ln -s /opt/appimages/${_pkg}.AppImage ${DESTDIR}/usr/bin/subsurface
+}

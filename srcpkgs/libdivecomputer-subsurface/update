@@ -1,2 +1,0 @@
-site="${homepage}/downloads"
-pattern="${pkgname}-branch-\K[\d\.]+(?=\.tgz)"
